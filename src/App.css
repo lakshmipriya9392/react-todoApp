@@ -3,8 +3,8 @@
 }
 
 .card-wrapper{
-  width: 240px; 
-  height: 200px; 
+  width: 260px; 
+  height: 250px; 
   display: flex;
   flex-direction: column;
   margin-right: 70px;
@@ -46,3 +46,6 @@
  background-color: #fbe8e7;
 }
 
+.time {
+  font-size: 12px;
+}

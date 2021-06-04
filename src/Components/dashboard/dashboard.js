@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddIcon from "@material-ui/icons/Add";
 import CreateTask from '../createTask/createTask'
 import Card from '../Card/Card'
+import { AnimatePresence, motion } from 'framer-motion'
+import firebaseConfig from '../firebase'
 
 
 
@@ -59,6 +61,8 @@ const saveList = (taskObj) => {
     setModal(false)
 }
 
+
+
   return (
     <div className="dashboard">
       <div className="dashboard_right">
@@ -70,7 +74,15 @@ const saveList = (taskObj) => {
         </div>
       </div>
       <div className="dashboard_left">
-        <h3>Collections</h3>
+        <AnimatePresence>
+        <motion.h3 initial={{ y: -100 }} 
+        animate={{ y: 0, transition: { delay: 0.3 } }}>Collections</motion.h3>
+        </AnimatePresence>
+       
+       
+        <motion.div className = "addNote_button" whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }} initial={{ x: -1000 }} 
+          animate={{ x: 0, transition: { delay: 0.6 } }}>
         <Button
           variant="contained"
           color="default"
@@ -80,6 +92,13 @@ const saveList = (taskObj) => {
         >
           Add Note
         </Button>
+        <Button
+            variant="contained"
+            color="default"
+            className={classes.button}
+            onClick = {() => firebaseConfig.auth().signOut()}
+        >SignOut</Button>
+        </motion.div>
       </div>
     </div>
   );
