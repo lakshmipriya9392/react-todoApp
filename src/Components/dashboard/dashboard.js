@@ -6,7 +6,7 @@ import AddIcon from "@material-ui/icons/Add";
 import CreateTask from '../createTask/createTask'
 import Card from '../Card/Card'
 import { AnimatePresence, motion } from 'framer-motion'
-import firebaseConfig from '../firebase'
+import app from '../firebase'
 
 
 
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard({handleLogout}) {
   const classes = useStyles();
 
   const [modal, setModal] = useState(false);
@@ -96,7 +96,7 @@ const saveList = (taskObj) => {
             variant="contained"
             color="default"
             className={classes.button}
-            onClick = {() => firebaseConfig.auth().signOut()}
+            onClick = {handleLogout}
         >SignOut</Button>
         </motion.div>
       </div>

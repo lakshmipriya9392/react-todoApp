@@ -1,49 +1,33 @@
-import React, { useCallback, useContext } from 'react'
-import { withRouter, Redirect } from 'react-router'
-import firebaseConfig from '../firebase'
-import { AuthContext } from '../../Auth'
+import React from 'react'
 
- function Login({history}) {
+export default function Login(props) {
 
-const handleLogin = useCallback(
-    async(e) => {
-        e.preventDefault();
-        const { email, password} = e.target.elements;
-        try{
-            await firebaseConfig.auth().signinWithEmailAndPassword(email.value, password.value);
-            history.push('/');
-        }catch(error){
-            alert(error);
-        }
-    },[history]
-);
-
-const currentUser = useContext(AuthContext);
-
-if(currentUser) {
-    return <Redirect to = "/" />
-}
-
+const { email, password, setEmail, setPassword, emailError, passwordError, handleLogin, handleSignup, hasAccount, setHasAccount} = props;
 
 
     return (
-        <div>
-            <h1>Login</h1>
-              <form onSubmit = {handleLogin}>
-                <label>
-                    Email
-                    <input placeholder = "Enter your email" type = "email" />
-                </label>
-                <label>
-                    Password
-                    <input placeholder = "Enter your password" type = "password" />
-                </label>
-                <button type = "submit">Login</button>
-            </form>
-        </div>
+        <section className = "login">
+            <div className = "loginContainer">
+                <label>Username</label>
+                <input autoFocus type = "text" required value = {email} onChange = {(e) => setEmail(e.target.value)} />
+                <p className = "errorMsg">{emailError}</p>
+                <label>Password</label>
+                <input autoFocus type = "password" required value = {password} onChange = {(e) => setPassword(e.target.value)} />
+                <p className = "errorMsg">{passwordError}</p>
+                <div className = "btnContainer">
+                    {hasAccount ? (
+                        <>
+                        <button onClick = {handleLogin}>Login</button>
+                        <p>Don't have an account ? <span onClick = {() => setHasAccount(!hasAccount)}>Sign up</span></p>
+                        </>
+                    ): (
+                        <>
+                        <button onClick = {handleSignup}>Signup</button>
+                        <p>Have an account ? <span onClick = {() => setHasAccount(!hasAccount)}>Sign in</span></p>
+                        </>
+                    )}
+                </div>
+            </div>
+        </section>
     )
 }
-
-export default withRouter(Login);
-
-

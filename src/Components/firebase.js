@@ -3,7 +3,7 @@ import 'firebase/auth'
 
 
 
- const firebaseConfig = firebase.initializeApp({
+ const app = firebase.initializeApp({
     apiKey: "AIzaSyChwnzfHJihpuRKX2agarK8rhKXTMqBKAM",
     authDomain: "todo-app-19452.firebaseapp.com",
     projectId: "todo-app-19452",
@@ -13,5 +13,5 @@ import 'firebase/auth'
   });
   // Initialize Firebase
 
-  export default firebaseConfig;
+  export default app;
   
